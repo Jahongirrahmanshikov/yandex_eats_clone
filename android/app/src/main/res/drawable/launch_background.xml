@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FCE000" /> <!-- Sariq rang -->
+        </shape>
+    </item>
+
+    <!-- Image in the center -->
+    <item
+        android:drawable="@mipmap/ic_launcher_foreground"
+        android:gravity="center">
+    </item>
+</layer-list>

@@ -1,0 +1,45 @@
+name: yandex_eats
+description: A new Flutter project.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  google_maps_flutter: ^2.5.0
+  cupertino_icons: ^1.0.2
+  geolocator: ^9.0.2
+  geocoding: ^2.1.1
+  geocoding_android: ^2.1.2
+  provider: ^6.1.1
+  http: ^1.1.0
+  sqflite: ^2.3.0
+  flutter_riverpod: ^2.4.6
+  vertical_scrollable_tabview: ^0.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/categories_image/
+    - assets/images/restaurants_image/choparPizza_image/
+    - assets/images/restaurants_image/dopamineCoffe_image/
+    - assets/images/restaurants_image/mahmoodKabob_image/
+    - assets/images/restaurants_image/maxway_image/
+    - assets/images/restaurants_image/oqtepa_image/
+    - assets/images/restaurants_image/oshMarkazi_image/
+    - assets/images/sous/
+    - assets/images/yandex_image/
+
