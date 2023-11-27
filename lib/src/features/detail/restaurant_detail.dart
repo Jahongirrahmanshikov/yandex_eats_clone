@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
@@ -52,16 +51,19 @@ class _ProductsViewState extends State<ProductsView>
             expandedHeight: 250.0,
             centerTitle: false,
             elevation: 0,
-            leading: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.arrow_back),
                 ),
-                child: Icon(Icons.arrow_back),
               ),
             ),
             flexibleSpace: FlexibleSpaceBar(
@@ -165,7 +167,6 @@ class _ViewCategoryState extends State<ViewCategory> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  ///Wettan bottom sheet
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
@@ -226,7 +227,16 @@ class _ViewCategoryState extends State<ViewCategory> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showModalBottomSheet<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ProductDetail(
+                                    products: widget.category.products[index],
+                                  );
+                                },
+                              );
+                            },
                             style: TextButton.styleFrom(
                               alignment: Alignment.center,
                               backgroundColor: Colors.white,

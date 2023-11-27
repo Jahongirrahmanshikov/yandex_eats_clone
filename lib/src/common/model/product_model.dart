@@ -17,6 +17,30 @@ class RestaurantProducts {
   String gram;
   int count;
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'category': category,
+      'image': image,
+      'description': description,
+      'price': price,
+      'gram': gram,
+      'count': count,
+    };
+  }
+
+  factory RestaurantProducts.fromMap(Map<String, dynamic> map) {
+    return RestaurantProducts(
+      id: map['id'],
+      category: map['category'],
+      image: map['image'],
+      description: map['description'],
+      price: map['price'],
+      gram: map['gram'],
+      count: map['count'],
+    );
+  }
+
   Map<String, Object?> toJson() => {
         "category": category,
         "image": image,

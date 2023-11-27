@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../common/styles/app_colors.dart';
 import '../../common/utils/custom_extension.dart';
 import '../controller/main_controller.dart';
+import 'delivery_screen.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -23,6 +24,7 @@ class _CartPageState extends State<CartPage> {
     super.initState();
     context.read<MainController>().productPrice;
     context.read<MainController>().getCategoryName;
+   
   }
 
   @override
@@ -122,108 +124,127 @@ class _CartPageState extends State<CartPage> {
                   ),
                   Column(
                     children: List.generate(
-                      context.watch<MainController>().user.korzinka!.length,
-                      (index) => Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  height: 80,
-                                  width: 80,
-                                  child: Image(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                      context
-                                          .watch<MainController>()
-                                          .user
-                                          .korzinka![index]
-                                          .image,
+                      context.watch<MainController>().user.korzinka == null
+                          ? 0
+                          : context
+                              .watch<MainController>()
+                              .user
+                              .korzinka!
+                              .length,
+                      (index) {
+                        if (context.watch<MainController>().user.korzinka ==
+                            null) {
+                          return const SizedBox.shrink();
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 80,
+                                    width: 80,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                      child: Image(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          context
+                                              .watch<MainController>()
+                                              .user
+                                              .korzinka![index]
+                                              .image,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(context
-                                            .watch<MainController>()
-                                            .user
-                                            .korzinka?[index]
-                                            .category ??
-                                        ""),
-                                    Text(
-                                      "${context.watch<MainController>().user.korzinka![index].price}",
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 100,
-                              height: 40,
-                              child: ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                                child: SizedBox(
-                                  height: 60,
-                                  child: ColoredBox(
-                                    color: Colors.grey[300] ?? Colors.grey,
-                                    child: ValueListenableBuilder(
-                                      valueListenable: count,
-                                      builder: (BuildContext context, value,
-                                              Widget? child) =>
-                                          Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<MainController>()
-                                                  .couterProduct(
-                                                      context
-                                                          .read<
-                                                              MainController>()
-                                                          .user
-                                                          .korzinka![index],
-                                                      '-');
-                                            },
-                                            child: const Text(
-                                              "-",
-                                              style: TextStyle(fontSize: 25),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(context
+                                              .watch<MainController>()
+                                              .user
+                                              .korzinka?[index]
+                                              .category ??
+                                          ""),
+                                      Text(
+                                        "${context.watch<MainController>().user.korzinka![index].price}",
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 100,
+                                height: 40,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16)),
+                                  child: SizedBox(
+                                    height: 60,
+                                    child: ColoredBox(
+                                      color: Colors.grey[300] ?? Colors.grey,
+                                      child: ValueListenableBuilder(
+                                        valueListenable: count,
+                                        builder: (BuildContext context, value,
+                                                Widget? child) =>
+                                            Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                context
+                                                    .read<MainController>()
+                                                    .couterProduct(
+                                                        context
+                                                            .read<
+                                                                MainController>()
+                                                            .user
+                                                            .korzinka![index],
+                                                        '-');
+                                              },
+                                              child: const Text(
+                                                "-",
+                                                style: TextStyle(fontSize: 25),
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                              "${context.watch<MainController>().user.korzinka![index].count}"),
-                                          GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<MainController>()
-                                                  .couterProduct(
-                                                      context
-                                                          .read<
-                                                              MainController>()
-                                                          .user
-                                                          .korzinka![index],
-                                                      '+');
-                                            },
-                                            child: const Text(
-                                              "+",
-                                              style: TextStyle(fontSize: 25),
+                                            Text(
+                                                "${context.watch<MainController>().user.korzinka![index].count}"),
+                                            GestureDetector(
+                                              onTap: () {
+                                                context
+                                                    .read<MainController>()
+                                                    .couterProduct(
+                                                        context
+                                                            .read<
+                                                                MainController>()
+                                                            .user
+                                                            .korzinka![index],
+                                                        '+');
+                                              },
+                                              child: const Text(
+                                                "+",
+                                                style: TextStyle(fontSize: 25),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                   const Divider(),
@@ -287,6 +308,60 @@ class _CartPageState extends State<CartPage> {
                     ],
                   )
                 ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: ColoredBox(
+                  color: Colors.grey[200] ?? Colors.grey,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 80,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "${context.watch<MainController>().sum + 5000} sum\nTotal",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Delivery(),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(18),
+                            child: const SizedBox(
+                              height: 60,
+                              width: 200,
+                              child: ColoredBox(
+                                color: Colors.yellow,
+                                child: Center(
+                                  child: Text(
+                                    "Next",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             )
           ],

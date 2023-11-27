@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:yandex_eats/src/common/styles/app_colors.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -7,15 +8,15 @@ class ShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: AppColors.white,
       body: Column(
         children: [
           AppBar(
-            backgroundColor: Colors.black87,
+            backgroundColor: AppColors.white,
             title: const Text(
               "Shops",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -23,7 +24,7 @@ class ShopPage extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(
                 CupertinoIcons.arrow_left,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
             actions: const [

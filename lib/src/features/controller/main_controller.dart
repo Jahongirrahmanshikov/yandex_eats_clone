@@ -11,13 +11,13 @@ import 'package:http/http.dart';
 import '../../common/data/database.dart';
 import '../../common/model/restaurant_model.dart';
 import '../../common/model/user_model.dart';
+import '../../common/service/db_service.dart';
 import '../../common/styles/app_colors.dart';
 import '../../common/utils/custom_extension.dart';
 import '../../common/utils/snack_bar.dart';
 import '../../common/utils/time_extension.dart';
 import '../auth/get_full_name.dart';
 import '../auth/sms_cheker.dart';
-import '../home/main_screen/main_screeen.dart';
 
 class MainController extends ChangeNotifier {
   GoogleMapController? mapController;
@@ -201,23 +201,63 @@ class MainController extends ChangeNotifier {
     }
   }
 
-  void goHomePage(BuildContext context) {
+  void goHomePage(VoidCallback navigateToMainScreen) async {
     if (lastName.trim().isNotEmpty && firstName.trim().isNotEmpty) {
-      user = UserModel(
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        lon: lon,
-        lat: lat,
-        sex: null,
-        korzinka: [],
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MainScreen(),
-        ),
-      );
+      List<UserModel> dbUsers = await DBService.getAllUsers();
+      print(123456789876546);
+      print(dbUsers);
+      print(123456789876546);
+
+      if (dbUsers.isNotEmpty) {
+        UserModel existingUser;
+        try {
+          existingUser =
+              dbUsers.firstWhere((person) => person.phoneNumber == phoneNumber);
+          user = UserModel(
+            id: existingUser.id,
+            firstName: firstName,
+            lastName: lastName,
+            phoneNumber: existingUser.phoneNumber,
+            lon: existingUser.lon,
+            lat: existingUser.lat,
+            email: '',
+            history: [],
+            korzinka: existingUser.korzinka,
+            sex: '',
+          );
+        } catch (e, s) {
+          print(
+              "=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-");
+              print(e);
+              print(s);
+              user = UserModel(
+            id: dbUsers.last.id + 1,
+            firstName: firstName,
+            lastName: lastName,
+            phoneNumber: phoneNumber,
+            lon: lon,
+            lat: lat,
+            email: '',
+            history: [],
+            korzinka: [],
+            sex: '',
+          );
+          DBService.addUser(user);
+        }
+      } else {
+        user = UserModel(
+          id: 1,
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+          lon: lon,
+          lat: lat,
+        );
+        DBService.addUser(user);
+      }
+
+      // Use the callback to navigate
+      navigateToMainScreen();
     } else {
       validatorFirstName();
       validatorLastName();
@@ -346,6 +386,7 @@ class MainController extends ChangeNotifier {
 
   void save(BuildContext context) {
     user = UserModel(
+      id: user.id,
       firstName: newName ?? user.firstName,
       lastName: user.lastName,
       phoneNumber: phoneNumber,
@@ -353,7 +394,11 @@ class MainController extends ChangeNotifier {
       lat: lat,
       email: newEmail,
       sex: newSex,
+      history: user.history,
+      korzinka: user.korzinka,
     );
+
+    DBService.updateUser(user);
     showSnackBar(
       context: context,
       color: AppColors.black.withOpacity(0.8),
@@ -364,29 +409,6 @@ class MainController extends ChangeNotifier {
   /* MainScreen */
 
   /* Home Page */
-  List<String> category = [
-    'Burger',
-    'Chiken',
-    'Pizza',
-    'Halal',
-    'Pilaf',
-    'Lavash',
-    'Soups',
-    'Shish-kebab',
-    'Coffee',
-  ];
-
-  List<String> categoryImage = [
-    'assets/images/categories_image/burgers.png',
-    'assets/images/categories_image/chiken.png',
-    'assets/images/categories_image/pizza.png',
-    'assets/images/categories_image/halal.png',
-    'assets/images/categories_image/osh.png',
-    'assets/images/categories_image/lavash.png',
-    'assets/images/categories_image/soup.png',
-    'assets/images/categories_image/kebab.png',
-    'assets/images/categories_image/coffe.png',
-  ];
 
   List<String> currentCategory = [];
 
@@ -413,6 +435,7 @@ class MainController extends ChangeNotifier {
       notifyListeners();
       return;
     }
+
     List<Restaurant> find = [];
     if (currentCategory.isNotEmpty) {
       for (int k = 0; k < currentCategory.length; k++) {
@@ -430,14 +453,6 @@ class MainController extends ChangeNotifier {
       notifyListeners();
     } else {
       restaurant = Data.restaurant;
-      notifyListeners();
-    }
-  }
-
-  void getUserProduct() {
-    if (user.korzinka!.isNotEmpty) {
-      user.korzinka = user.korzinka!.toSet().toList();
-      productPrice();
       notifyListeners();
     }
   }
@@ -464,6 +479,20 @@ class MainController extends ChangeNotifier {
     user.korzinka = newCart;
     productPrice();
     getCategoryName();
+    user = UserModel(
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      lon: user.lon,
+      lat: user.lat,
+      korzinka: newCart,
+      email: user.email,
+      sex: user.sex,
+      history: user.history,
+    );
+    DBService.updateUser(user);
+
     notifyListeners();
   }
 
@@ -494,6 +523,7 @@ class MainController extends ChangeNotifier {
         }
       }
     }
+    DBService.updateUser(user);
   }
 
   List<String> getCategory = [];
@@ -512,20 +542,37 @@ class MainController extends ChangeNotifier {
     }
     getCategory = getCategory.toSet().toList();
     print(getCategory);
+    print(121212121);
+    print(user.korzinka);
+    print(121212121);
     notifyListeners();
   }
 
   void clearCart() {
+    user.history = user.korzinka;
     if (user.korzinka != null) {
       for (var pr in user.korzinka!) {
-        pr.count = 0;
+        pr.count = 1;
         notifyListeners();
       }
     }
 
-    user.korzinka!.clear();
+    user.korzinka = null;
     getCategory.clear();
-    sum = 1;
+    sum = 0;
+    user = UserModel(
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      lon: user.lon,
+      lat: user.lat,
+      email: user.email,
+      history: [],
+      korzinka: [],
+      sex: user.sex,
+    );
+    DBService.updateUser(user);
     notifyListeners();
   }
 }

@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_eats/src/common/model/product_model.dart';
-import 'package:yandex_eats/src/features/controller/main_controller.dart';
+import '../../controller/main_controller.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({
@@ -28,18 +27,23 @@ class _ProductDetailState extends State<ProductDetail> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
-        height: 600,
+        height: 500,
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-                height: 200,
-                child: Image(
-                  image: AssetImage(widget.products.image),
-                  fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Image(
+                    image: AssetImage(widget.products.image),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(height: 15),

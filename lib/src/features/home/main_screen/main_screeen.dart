@@ -1,3 +1,5 @@
+import 'package:yandex_eats/src/features/auth/new_location.dart';
+
 import '../../../common/utils/custom_extension.dart';
 import '../../../common/styles/app_colors.dart';
 import '../../controller/main_controller.dart';
@@ -66,25 +68,33 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
         ),
-        title: Column(
-          children: [
-            const Text(
-              "Address and time delivery",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
+        title: GestureDetector(
+          onTap: () {
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) => const NewLocation(),
+            );
+          },
+          child: Column(
+            children: [
+              const Text(
+                "Address and time delivery",
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
-            Text(
-              context.watch<MainController>().currenAddressName,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                overflow: TextOverflow.ellipsis,
+              Text(
+                context.watch<MainController>().currenAddressName,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                maxLines: 1,
               ),
-              maxLines: 1,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: PageView(

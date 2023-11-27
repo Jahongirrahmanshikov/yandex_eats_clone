@@ -1,3 +1,5 @@
+import 'package:yandex_eats/src/features/auth/get_phone_number.dart';
+
 import '../../../common/utils/custom_extension.dart';
 import '../../../common/styles/app_colors.dart';
 import '../../controller/main_controller.dart';
@@ -44,7 +46,14 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GetPhoneNumber(),
+                  ),
+                  (route) => true);
+            },
             icon: const Icon(
               Icons.logout,
               size: 30,

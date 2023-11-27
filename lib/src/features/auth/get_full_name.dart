@@ -1,3 +1,4 @@
+import '../home/main_screen/main_screeen.dart';
 import '../../common/utils/custom_extension.dart';
 import '../../common/styles/app_colors.dart';
 import '../controller/main_controller.dart';
@@ -141,7 +142,15 @@ class _GetFullNameState extends State<GetFullName> {
             const SizedBox(height: 20),
             FilledButton(
               onPressed: () {
-                context.read<MainController>().goHomePage(context);
+                context.read<MainController>().goHomePage(() {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MainScreen(),
+                    ),
+                    (route) => true,
+                  );
+                });
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(AppColors.white),
