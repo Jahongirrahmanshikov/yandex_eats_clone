@@ -178,21 +178,25 @@ class _ViewCategoryState extends State<ViewCategory> {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
-                      return BottomSheet(
-                        onClosing: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductsView(
-                                restaurant: widget.restaurant,
+                      return SingleChildScrollView(
+                        child: BottomSheet(
+                          enableDrag: false,
+                          showDragHandle: false,
+                          onClosing: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductsView(
+                                  restaurant: widget.restaurant,
+                                ),
                               ),
-                            ),
-                          );
-                          setState(() {});
-                        },
-                        builder: (BuildContext context) => ProductDetail(
-                          products: widget.category.products[index],
-                          restaurant: widget.restaurant,
+                            );
+                            setState(() {});
+                          },
+                          builder: (BuildContext context) => ProductDetail(
+                            products: widget.category.products[index],
+                            restaurant: widget.restaurant,
+                          ),
                         ),
                       );
                     },

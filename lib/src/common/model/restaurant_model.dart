@@ -1,7 +1,8 @@
-  import 'product_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'product_model.dart';
 
-  class Restaurant {
-      Restaurant({
+class Restaurant {
+    Restaurant({
       required this.name,
       required this.restaurantImage,
       required this.restaurantType,
@@ -51,4 +52,24 @@
           ' deliveryPrice: $deliveryPrice,'
           ' rate: $rate, products: $products}';
     }
+
+  Restaurant copyWith({
+    String? name,
+    String? restaurantImage,
+    String? restaurantType,
+    String? deliveryTime,
+    String? deliveryPrice,
+    String? rate,
+    List<RestaurantProducts>? products,
+  }) {
+    return Restaurant(
+      name: name ?? this.name,
+      restaurantImage: restaurantImage ?? this.restaurantImage,
+      restaurantType: restaurantType ?? this.restaurantType,
+      deliveryTime: deliveryTime ?? this.deliveryTime,
+      deliveryPrice: deliveryPrice ?? this.deliveryPrice,
+      rate: rate ?? this.rate,
+      products: products ?? this.products,
+    );
+  }
   }

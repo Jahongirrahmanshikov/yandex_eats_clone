@@ -26,6 +26,7 @@ class _ProfileState extends State<Profile> {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.white,
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         elevation: 0,
         title: Text(
           'Профиль',
@@ -106,21 +107,6 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               onTap: () => context.read<MainController>().selectDate(context),
-            ),
-            TextField(
-              controller: context.watch<MainController>().sexController,
-              onTap: () {
-                context.read<MainController>().dialog(context);
-              },
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: "Пoл",
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.mainColor,
-                  ),
-                ),
-              ),
             ),
             TextField(
               keyboardType: TextInputType.emailAddress,

@@ -223,7 +223,7 @@ class MainController extends ChangeNotifier {
             email: '',
             history: [],
             korzinka: existingUser.korzinka,
-            sex: '',
+            sex: 'Мужской',
           );
           productPrice();
         } catch (e, s) {
@@ -436,6 +436,9 @@ class MainController extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    if (currentCategory.contains('Coffee')) {
+      restaurant.add(Data.restaurant[0]);
+    }
 
     List<Restaurant> find = [];
     if (currentCategory.isNotEmpty) {
@@ -459,7 +462,7 @@ class MainController extends ChangeNotifier {
   }
 
   void isAvailable(RestaurantProducts products) {
-    List<RestaurantProducts> newCart = List.from(user.korzinka ?? []);
+    List<RestaurantProducts> newCart = [...List.from(user.korzinka ?? [])];
 
     bool found = false;
 
@@ -477,7 +480,7 @@ class MainController extends ChangeNotifier {
       getCategoryName();
     }
 
-    user.korzinka = newCart;
+    user.korzinka = [...newCart];
     productPrice();
     getCategoryName();
     user = UserModel(
@@ -556,11 +559,12 @@ class MainController extends ChangeNotifier {
   }
 
   void clearCart() {
-    user.history!.addAll(user.korzinka!);
+    List<RestaurantProducts> oldProduct = [...user.korzinka!];
 
-    user.korzinka = null;
     getCategory.clear();
+
     sum = 0;
+
     user = UserModel(
       id: user.id,
       firstName: user.firstName,
@@ -569,22 +573,39 @@ class MainController extends ChangeNotifier {
       lon: user.lon,
       lat: user.lat,
       email: user.email,
-      history: user.history,
+      history: [...oldProduct],
       korzinka: [],
       sex: user.sex,
     );
     DBService.updateUser(user);
-    if (user.korzinka != null) {
-      for (var pr in user.korzinka!) {
+
+    print(oldProduct);
+    print(user.korzinka);
+  
+    for (var restaurant in Data.restaurant) {
+      for (var pr in restaurant.products) {
         pr.count = 0;
         notifyListeners();
       }
     }
+
     notifyListeners();
-    print(
-        "==[]=[=[]=[]=[]=[]=][=[]=[=[[]=[]=[=[]][=[]=[=][=[]=[]=[]==][=][=][]]]]]");
-    print(user.history);
-    print(
-        "==[]=[=[]=[]=[]=[]=][=[]=[=[[]=[]=[=[]][=[]=[=][=[]=[]=[]==][=][=][]]]]]");
+  }
+
+  void clearOrders() {
+    user = UserModel(
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      lon: user.lon,
+      lat: user.lat,
+      email: user.email,
+      history: [],
+      korzinka: user.korzinka,
+      sex: user.sex,
+    );
+    notifyListeners();
+    DBService.updateUser(user);
   }
 }

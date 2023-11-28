@@ -6,7 +6,7 @@ import '../model/user_model.dart';
 
 class Data {
   ///   All
-  static List<Restaurant> restaurant = [
+  static List<Restaurant> restaurant =[
     /// DopamineCoffe
     Restaurant(
       name: "Dopamine Coffe",
@@ -29,7 +29,7 @@ class Data {
         ),
         RestaurantProducts(
           id: 9090,
-          category: "Cappuccino",
+          category: "Coffee",
           image:
               "assets/images/restaurants_image/dopamineCoffe_image/coffee.png",
           description: "raf",

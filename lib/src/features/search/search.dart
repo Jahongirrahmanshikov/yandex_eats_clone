@@ -19,16 +19,6 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   List<Restaurant> searchResult = [];
 
-  void search(String query) {
-    searchResult.clear();
-    for (var item in Data.restaurant) {
-      if (item.name.toLowerCase().contains(query)) {
-        searchResult.add(item);
-      }
-    }
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,8 +60,18 @@ class _SearchState extends State<Search> {
                           ),
                         ),
                         child: TextField(
+                          autofocus: true,
                           onChanged: (value) {
-                            search(value);
+                            searchResult = [];
+
+                            if (value.isNotEmpty) {
+                              for (var item in Data.restaurant) {
+                                if (item.name.contains(value.toLowerCase())) {
+                                  searchResult.add(item);
+                                }
+                              }
+                              setState(() {});
+                            }
                           },
                           decoration: const InputDecoration(
                             enabledBorder: InputBorder.none,

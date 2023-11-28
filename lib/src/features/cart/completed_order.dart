@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yandex_eats/src/common/styles/app_colors.dart';
 import '../home/main_screen/main_screeen.dart';
 
 class CompletedOrder extends StatefulWidget {
@@ -78,15 +79,22 @@ class _CompletedOrderState extends State<CompletedOrder> {
             ),
             Align(
               alignment: Alignment.topLeft,
-              child: BackButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MainScreen(),
-                      ),
-                      (route) => true);
-                },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: AppColors.white,
+                  child: BackButton(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainScreen(),
+                          ),
+                          (route) => true);
+                    },
+                  ),
+                ),
               ),
             ),
           ],

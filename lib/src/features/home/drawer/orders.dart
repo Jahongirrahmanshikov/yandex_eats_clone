@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yandex_eats/src/features/controller/main_controller.dart';
 
-class Orders extends StatelessWidget {
+class Orders extends StatefulWidget {
   const Orders({super.key});
 
+  @override
+  State<Orders> createState() => _OrdersState();
+}
+
+class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     return context.watch<MainController>().user.history!.isNotEmpty
@@ -14,7 +19,32 @@ class Orders extends StatelessWidget {
               title: const Text("Orders"),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Warning'),
+                          content: const Text('are you sure to clear cart'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                context.read<MainController>().clearOrders();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Yes'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('No'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   icon: const Icon(
                     CupertinoIcons.trash,
                   ),
