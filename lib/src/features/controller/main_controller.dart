@@ -556,13 +556,7 @@ class MainController extends ChangeNotifier {
   }
 
   void clearCart() {
-    user.history = user.korzinka;
-    if (user.korzinka != null) {
-      for (var pr in user.korzinka!) {
-        pr.count = 1;
-        notifyListeners();
-      }
-    }
+    user.history!.addAll(user.korzinka!);
 
     user.korzinka = null;
     getCategory.clear();
@@ -575,11 +569,22 @@ class MainController extends ChangeNotifier {
       lon: user.lon,
       lat: user.lat,
       email: user.email,
-      history: [],
+      history: user.history,
       korzinka: [],
       sex: user.sex,
     );
     DBService.updateUser(user);
+    if (user.korzinka != null) {
+      for (var pr in user.korzinka!) {
+        pr.count = 0;
+        notifyListeners();
+      }
+    }
     notifyListeners();
+    print(
+        "==[]=[=[]=[]=[]=[]=][=[]=[=[[]=[]=[=[]][=[]=[=][=[]=[]=[]==][=][=][]]]]]");
+    print(user.history);
+    print(
+        "==[]=[=[]=[]=[]=[]=][=[]=[=[[]=[]=[=[]][=[]=[=][=[]=[]=[]==][=][=][]]]]]");
   }
 }

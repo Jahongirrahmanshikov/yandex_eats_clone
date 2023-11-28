@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yandex_eats/src/features/auth/change_location.dart';
+import 'package:yandex_eats/src/features/controller/main_controller.dart';
 
 class NewLocation extends StatefulWidget {
   const NewLocation({super.key});
@@ -11,7 +14,7 @@ class _NewLocationState extends State<NewLocation> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 380,
+      height: 300,
       child: DecoratedBox(
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -39,9 +42,9 @@ class _NewLocationState extends State<NewLocation> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                             width: 25,
                             child: DecoratedBox(
@@ -58,34 +61,37 @@ class _NewLocationState extends State<NewLocation> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 15),
-                          TextMini(text: 'Beruniy Street,3A'),
+                          const SizedBox(width: 15),
+                          TextMini(
+                              text: context
+                                  .watch<MainController>()
+                                  .currenAddressName),
                         ],
                       ),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                              Icons.settings_input_component_outlined))
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    children: [
-                      Icon(Icons.add),
-                      SizedBox(width: 15),
-                      TextMini(text: 'Add new')
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangeLocation(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.settings_input_component_outlined,
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Divider(color: Colors.black12, thickness: 15),
-            const Padding(
-              padding: EdgeInsets.all(15.0),
+            const Divider(color: Colors.black12, thickness: 5),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextMini(text: "Delivery time"),
@@ -100,16 +106,21 @@ class _NewLocationState extends State<NewLocation> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Padding(
-                    padding: EdgeInsets.all(1.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Expanded(
-                      child: Card(
-                        color: Colors.amber,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 15.0, horizontal: 140),
-                          child: TextMini(text: "Done"),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Card(
+                          color: Colors.amber,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 140),
+                            child: TextMini(text: "Done"),
+                          ),
                         ),
                       ),
                     ),

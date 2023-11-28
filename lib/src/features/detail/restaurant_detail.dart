@@ -44,6 +44,7 @@ class _ProductsViewState extends State<ProductsView>
         eachItemChild: (category, index) {
           return ViewCategory(
             category: category,
+            restaurant: widget.restaurant,
           );
         },
         slivers: [
@@ -136,8 +137,13 @@ class _ProductsViewState extends State<ProductsView>
 
 class ViewCategory extends StatefulWidget {
   final Category category;
+  final Restaurant restaurant;
 
-  const ViewCategory({super.key, required this.category});
+  const ViewCategory({
+    super.key,
+    required this.category,
+    required this.restaurant,
+  });
 
   @override
   State<ViewCategory> createState() => _ViewCategoryState();
@@ -172,16 +178,23 @@ class _ViewCategoryState extends State<ViewCategory> {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
-                      ///
-                      ///
-                        // products: widget.category.products[index],
-                      ///
-                      return ProductDetail(
-                        products: widget.category.products[index],
+                      return BottomSheet(
+                        onClosing: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductsView(
+                                restaurant: widget.restaurant,
+                              ),
+                            ),
+                          );
+                          setState(() {});
+                        },
+                        builder: (BuildContext context) => ProductDetail(
+                          products: widget.category.products[index],
+                          restaurant: widget.restaurant,
+                        ),
                       );
-                      ///
-                      ///
-                      ///
                     },
                   );
                 },

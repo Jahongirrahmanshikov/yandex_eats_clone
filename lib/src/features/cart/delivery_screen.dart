@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yandex_eats/src/features/cart/completed_order.dart';
 import '../../common/styles/app_colors.dart';
 import '../controller/main_controller.dart';
 
@@ -256,9 +257,9 @@ class _DeliveryState extends State<Delivery> {
                             width: 2,
                           ),
                         ),
-                        label: const Text(
-                          "+998 91 123 45 67",
-                          style: TextStyle(
+                        label: Text(
+                          "+998 ${context.watch<MainController>().user.phoneNumber}",
+                          style: const TextStyle(
                             color: AppColors.black,
                           ),
                         ),
@@ -439,6 +440,12 @@ class _DeliveryState extends State<Delivery> {
                         GestureDetector(
                           onTap: () {
                             context.read<MainController>().clearCart();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CompletedOrder(),
+                              ),
+                            );
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(18),

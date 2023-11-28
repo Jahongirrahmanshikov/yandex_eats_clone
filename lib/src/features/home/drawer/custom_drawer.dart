@@ -4,7 +4,6 @@ import '../../../common/styles/app_colors.dart';
 import '../../../common/utils/custom_extension.dart';
 import 'orders.dart';
 import 'profile.dart';
-import 'promo_code.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -64,21 +63,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             leading: const Icon(Icons.location_on),
             title: const Text("Addresses"),
           ),
-          ListTile(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const PromoCodes(),
-              ),
-            ),
-            leading: const Icon(Icons.airplane_ticket_rounded),
-            title: const Text("Promo codes"),
+          const ListTile(
+            leading: Icon(Icons.airplane_ticket_rounded),
+            title: Text("Promo codes"),
           ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.share),
             title: const Text("Invite a friend"),
-            trailing: const Icon(Icons.gif_box),
           ),
           ListTile(
             onTap: () {},

@@ -38,7 +38,7 @@ class _SmsChekState extends State<SmsChek> {
             ),
             const SizedBox(height: 30),
             Text(
-              'Введите код из смсю Мы отправили егo на номер +998 ${context.watch<MainController>().phoneNumber.substring(0, 2)} *** ** ${context.watch<MainController>().phoneNumber.substring(7)}',
+              'Введите код из смсю Мы отправили егo на номер +998 ${context.watch<MainController>().phoneNumber.substring(0, 2)} *** ** ${context.watch<MainController>().phoneNumber.substring(9)}',
               textAlign: TextAlign.center,
               style:
                   context.textTheme.bodyLarge?.copyWith(color: AppColors.white),
