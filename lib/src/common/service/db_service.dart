@@ -1,23 +1,31 @@
 import 'dart:convert';
 
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../model/product_model.dart';
 import '../model/user_model.dart';
 
 enum StorageKeys {
-  user('user');
+  user('user'),
+
+  isLogin('isLogin'),
+
+  userId('userId');
 
   const StorageKeys(this.key);
 
   final String key;
 }
 
+late final SharedPreferences $storage;
+
 late final Database _database;
 
 class DBService {
   static Future<void> initialize() async {
+    $storage = await SharedPreferences.getInstance();
     _database = await openDatabase(
       join(await getDatabasesPath(), 'database.db'),
       onCreate: (db, version) => _createTables(db),
@@ -25,7 +33,7 @@ class DBService {
     );
   }
 
-  static void _createTables(Database db) async{
+  static void _createTables(Database db) async {
     await db.execute(
       'CREATE TABLE ${StorageKeys.user.key}('
       'id INTEGER PRIMARY KEY AUTOINCREMENT, '

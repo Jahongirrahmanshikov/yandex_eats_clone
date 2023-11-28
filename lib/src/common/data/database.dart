@@ -25,7 +25,7 @@ class Data {
           description: "Americano cappuccino",
           price: 16000,
           gram: "300",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 9090,
@@ -35,7 +35,7 @@ class Data {
           description: "raf",
           price: 30000,
           gram: "300",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 1000,
@@ -45,7 +45,7 @@ class Data {
           description: "Americano cappuccino",
           price: 16000,
           gram: "300",
-          count: 1,
+          count: 0,
         ),
       ],
     ),
@@ -67,7 +67,7 @@ class Data {
           description: "Non",
           price: 4600,
           gram: "126",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 2,
@@ -77,7 +77,7 @@ class Data {
               "The best shashlik national food of uzbek its made cow meat",
           price: 17000,
           gram: "60",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 3,
@@ -87,7 +87,7 @@ class Data {
           description: "Fabric potato made of chicken",
           price: 12000,
           gram: "60",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 4,
@@ -98,7 +98,7 @@ class Data {
               "The best burda national food of uzbek its made cow meat",
           price: 12000,
           gram: "60",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 5,
@@ -108,7 +108,7 @@ class Data {
           description: "2 mahmood kabob 2 coca cola bread and fri",
           price: 100000,
           gram: "370",
-          count: 1,
+          count: 0,
         ),
       ],
     ),
@@ -132,7 +132,7 @@ class Data {
               "Original sandwich potato chips Coca cola (400-ml) sous you can choose",
           price: 35000,
           gram: "404",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 7,
@@ -142,7 +142,7 @@ class Data {
               "Original shaurma potato chips Coca cola (400-ml) sous you can choose",
           price: 40000,
           gram: "404",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 8,
@@ -152,7 +152,7 @@ class Data {
               "Original papini potato chips Coca cola (400-ml) sous you can choose",
           price: 35000,
           gram: "404",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 9,
@@ -162,7 +162,7 @@ class Data {
               "Original lavash potato chips Coca cola (400-ml) sous you can choose",
           price: 40000,
           gram: "404",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 10,
@@ -172,7 +172,7 @@ class Data {
               "Original hotdog potato chips Coca cola (400-ml) sous you can choose",
           price: 35000,
           gram: "404",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 11,
@@ -183,7 +183,7 @@ class Data {
               "Original gamburger potato chips Coca cola (400-ml) sous you can choose",
           price: 40000,
           gram: "404",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 12,
@@ -192,7 +192,7 @@ class Data {
           description: "Original hotdog",
           price: 15000,
           gram: "150",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 13,
@@ -201,7 +201,7 @@ class Data {
           description: "Original gamburger",
           price: 25000,
           gram: "200",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 14,
@@ -210,7 +210,7 @@ class Data {
           description: "Original fri made of potato",
           price: 7000,
           gram: "50",
-          count: 1,
+          count: 0,
         ),
       ],
     ),
@@ -233,7 +233,7 @@ class Data {
               "Potato sous Oqtepa chicken meat cheese mozzarella and babel",
           price: 100000,
           gram: "1000",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 16,
@@ -242,7 +242,7 @@ class Data {
           description: "cheese sous",
           price: 4000,
           gram: "30",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 17,
@@ -252,7 +252,7 @@ class Data {
           description: "Lavash made in tandir with fire",
           price: 30000,
           gram: "200",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 18,
@@ -261,7 +261,7 @@ class Data {
           description: "Lavash set fri sous coca cola",
           price: 50000,
           gram: "500",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 19,
@@ -271,7 +271,7 @@ class Data {
           description: "Hot dog double 2 sausage",
           price: 18000,
           gram: "200",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 20,
@@ -280,7 +280,7 @@ class Data {
           description: "Hot dog",
           price: 10000,
           gram: "100",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 21,
@@ -289,7 +289,7 @@ class Data {
           description: "Big set 2 Sandwich 2 fri 2 Pepsi (300-ml)",
           price: 50000,
           gram: "2000",
-          count: 1,
+          count: 0,
         ),
       ],
     ),
@@ -313,7 +313,7 @@ class Data {
               "double peperoni (25-sm) julen (25-sm) barbeque (25-sm) Coca cola (1.5,l) discount",
           price: 155000,
           gram: "2.476",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 23,
@@ -323,7 +323,7 @@ class Data {
           description: "cheese mozzarella honey",
           price: 43000,
           gram: "100",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 24,
@@ -333,7 +333,7 @@ class Data {
           description: "Fuse Tea ",
           price: 6000,
           gram: "500",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 25,
@@ -344,7 +344,7 @@ class Data {
               "Fabric sous potato sous cheese mozzarella horse meat red onion ",
           price: 71000,
           gram: "1000",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 26,
@@ -355,7 +355,7 @@ class Data {
               "(30-sm) Fabric sous potato sous cheese mozzarella sausage",
           price: 75000,
           gram: "1000",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 27,
@@ -366,7 +366,7 @@ class Data {
               "(30-sm) Fabric sous potato sous cheese mozzarella potato",
           price: 62000,
           gram: "1000",
-          count: 1,
+          count: 0,
         ),
         RestaurantProducts(
           id: 28,
@@ -377,7 +377,7 @@ class Data {
               "double peperoni (25-sm) julen (25-sm) barbeque (25-sm) double peperoni (25-sm) Coca cola (1.5,l) discount",
           price: 200000,
           gram: "2000",
-          count: 1,
+          count: 0,
         ),
       ],
     ),

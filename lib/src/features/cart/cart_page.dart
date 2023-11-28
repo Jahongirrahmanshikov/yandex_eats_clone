@@ -24,7 +24,6 @@ class _CartPageState extends State<CartPage> {
     super.initState();
     context.read<MainController>().productPrice;
     context.read<MainController>().getCategoryName;
-   
   }
 
   @override
@@ -202,7 +201,7 @@ class _CartPageState extends State<CartPage> {
                                               onTap: () {
                                                 context
                                                     .read<MainController>()
-                                                    .couterProduct(
+                                                    .counterProduct(
                                                         context
                                                             .read<
                                                                 MainController>()
@@ -221,7 +220,7 @@ class _CartPageState extends State<CartPage> {
                                               onTap: () {
                                                 context
                                                     .read<MainController>()
-                                                    .couterProduct(
+                                                    .counterProduct(
                                                         context
                                                             .read<
                                                                 MainController>()

@@ -225,12 +225,13 @@ class MainController extends ChangeNotifier {
             korzinka: existingUser.korzinka,
             sex: '',
           );
+          productPrice();
         } catch (e, s) {
           print(
               "=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-=-=-=-=-=-=-=-as=d-asd=-asd=-asd=-asd=-asd=-");
-              print(e);
-              print(s);
-              user = UserModel(
+          print(e);
+          print(s);
+          user = UserModel(
             id: dbUsers.last.id + 1,
             firstName: firstName,
             lastName: lastName,
@@ -509,20 +510,26 @@ class MainController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void couterProduct(RestaurantProducts product, String character) {
+  void counterProduct(RestaurantProducts product, String character) {
     for (var item in user.korzinka!) {
       if (product.id == item.id) {
         if (character == '-') {
-          item.count--;
-          productPrice();
-          notifyListeners();
+          if (item.count == 1) {
+            user.korzinka!.remove(item);
+          } else if (item.count > 0) {
+            item.count--;
+          }
         } else {
           item.count++;
-          productPrice();
-          notifyListeners();
         }
+        break;
       }
+      notifyListeners();
+      DBService.updateUser(user);
     }
+
+    productPrice();
+    notifyListeners();
     DBService.updateUser(user);
   }
 

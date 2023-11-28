@@ -6,6 +6,7 @@ import 'src/common/widget/my_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await DBService.initialize();
   runApp(
     MultiProvider(

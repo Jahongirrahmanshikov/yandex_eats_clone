@@ -15,13 +15,6 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  late int count;
-  @override
-  void initState() {
-    super.initState();
-    count = widget.products.count;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -91,10 +84,10 @@ class _ProductDetailState extends State<ProductDetail> {
                                 children: [
                                   GestureDetector(
                                     onTap: () => setState(() {
-                                      if (count == 0) {
-                                        count = 0;
+                                      if (widget.products.count == 0) {
+                                        widget.products.count = 0;
                                       } else {
-                                        count--;
+                                        widget.products.count--;
                                       }
                                     }),
                                     child: const Text(
@@ -102,9 +95,10 @@ class _ProductDetailState extends State<ProductDetail> {
                                       style: TextStyle(fontSize: 30),
                                     ),
                                   ),
-                                  Text('$count'),
+                                  Text('${widget.products.count}'),
                                   GestureDetector(
-                                    onTap: () => setState(() => count++),
+                                    onTap: () =>
+                                        setState(() => widget.products.count++),
                                     child: const Text(
                                       "+",
                                       style: TextStyle(fontSize: 25),
@@ -122,8 +116,6 @@ class _ProductDetailState extends State<ProductDetail> {
                         child: GestureDetector(
                           onTap: () {
                             if (widget.products.count != 0) {
-                              widget.products.count = count;
-
                               context
                                   .read<MainController>()
                                   .isAvailable(widget.products);
@@ -133,6 +125,7 @@ class _ProductDetailState extends State<ProductDetail> {
 [user] -> [user] -> [user] = ${context.read<MainController>().user.korzinka}
 """);
                             }
+                            setState(() {});
                           },
                           child: ClipRRect(
                             borderRadius: const BorderRadius.all(

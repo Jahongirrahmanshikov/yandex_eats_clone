@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
+import 'package:yandex_eats/src/common/styles/app_colors.dart';
+import 'package:yandex_eats/src/features/controller/main_controller.dart';
 
 import '../../common/data/database.dart';
 import '../../common/model/restaurant_model.dart';
@@ -98,7 +101,6 @@ class _ProductsViewState extends State<ProductsView>
                     child: TabBar(
                       controller: tabController,
                       isScrollable: true,
-                      //dividerHeight: 0,
                       indicatorPadding: const EdgeInsets.symmetric(vertical: 5),
                       onTap: VerticalScrollableTabBarStatus.setIndex,
                       labelColor: Colors.black,
@@ -170,9 +172,16 @@ class _ViewCategoryState extends State<ViewCategory> {
                   showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
+                      ///
+                      ///
+                        // products: widget.category.products[index],
+                      ///
                       return ProductDetail(
                         products: widget.category.products[index],
                       );
+                      ///
+                      ///
+                      ///
                     },
                   );
                 },
@@ -226,39 +235,30 @@ class _ViewCategoryState extends State<ViewCategory> {
                         const SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: TextButton(
-                            onPressed: () {
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return ProductDetail(
-                                    products: widget.category.products[index],
-                                  );
-                                },
-                              );
-                            },
-                            style: TextButton.styleFrom(
-                              alignment: Alignment.center,
-                              backgroundColor: Colors.white,
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.black,
+                          child: widget.category.products[index].count != 0
+                              ? AddMinus(
+                                  increment: () {
+                                    widget.category.products[index].count--;
+                                    context.read<MainController>().isAvailable(
+                                        widget.category.products[index]);
+                                    setState(() {});
+                                  },
+                                  decrement: () {
+                                    widget.category.products[index].count++;
+                                    context.read<MainController>().isAvailable(
+                                        widget.category.products[index]);
+                                    setState(() {});
+                                  },
+                                  count: widget.category.products[index].count,
+                                )
+                              : Addd(
+                                  onTap: () {
+                                    widget.category.products[index].count++;
+                                    context.read<MainController>().isAvailable(
+                                        widget.category.products[index]);
+                                    setState(() {});
+                                  },
                                 ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Add',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                       ],
                     ),
@@ -266,6 +266,100 @@ class _ViewCategoryState extends State<ViewCategory> {
                 ),
               );
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddMinus extends StatefulWidget {
+  const AddMinus({
+    super.key,
+    required this.increment,
+    required this.decrement,
+    required this.count,
+  });
+  final VoidCallback increment;
+  final VoidCallback decrement;
+  final int count;
+
+  @override
+  State<AddMinus> createState() => _AddMinusState();
+}
+
+class _AddMinusState extends State<AddMinus> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 40,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          color: AppColors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              onPressed: widget.increment,
+              icon: const Text(
+                "-",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            Text(
+              "${widget.count}",
+              style: const TextStyle(fontSize: 20),
+            ),
+            IconButton(
+              onPressed: widget.decrement,
+              icon: const Icon(Icons.add),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Addd extends StatefulWidget {
+  const Addd({
+    super.key,
+    required this.onTap,
+  });
+  final VoidCallback onTap;
+
+  @override
+  State<Addd> createState() => _AdddState();
+}
+
+class _AdddState extends State<Addd> {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: widget.onTap,
+      style: TextButton.styleFrom(
+        alignment: Alignment.center,
+        backgroundColor: Colors.white,
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+          SizedBox(width: 10),
+          Text(
+            'Add',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
