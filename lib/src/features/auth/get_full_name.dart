@@ -142,15 +142,17 @@ class _GetFullNameState extends State<GetFullName> {
             const SizedBox(height: 20),
             FilledButton(
               onPressed: () {
-                context.read<MainController>().goHomePage(() {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MainScreen(),
-                    ),
-                    (route) => true,
-                  );
-                });
+                context.read<MainController>().goHomePage(
+                  () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainScreen(),
+                      ),
+                      (route) => true,
+                    );
+                  },
+                );
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(AppColors.white),

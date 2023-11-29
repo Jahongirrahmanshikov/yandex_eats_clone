@@ -95,7 +95,7 @@ class MainController extends ChangeNotifier {
       codeSms = 100000 + Random().nextInt(999999 - 100000);
 
       final Uri url =
-          Uri.parse(' https://880d-178-218-201-17.ngrok-free.app/email/');
+          Uri.parse(' https://8f48-178-218-201-17.ngrok-free.app/sms/');
       final Response response = await post(
         url,
         headers: <String, String>{'Content-Type': 'application/json'},
@@ -456,9 +456,11 @@ class MainController extends ChangeNotifier {
       restaurant = find.toSet().toList();
       notifyListeners();
     } else {
-      restaurant = Data.restaurant;
+      restaurant = Data.restaurant.toSet().toList();
       notifyListeners();
     }
+
+    notifyListeners();
   }
 
   void isAvailable(RestaurantProducts products) {
@@ -581,7 +583,7 @@ class MainController extends ChangeNotifier {
 
     print(oldProduct);
     print(user.korzinka);
-  
+
     for (var restaurant in Data.restaurant) {
       for (var pr in restaurant.products) {
         pr.count = 0;
@@ -607,5 +609,22 @@ class MainController extends ChangeNotifier {
     );
     notifyListeners();
     DBService.updateUser(user);
+  }
+
+  List<Restaurant> foundRestaurant = [];
+
+  void searchRestaurant(String value) {
+    foundRestaurant.clear();
+
+    if (value.trim().isNotEmpty) {
+      for (var item in Data.restaurant) {
+        print('Restaurant name: ${item.name}');
+        if (item.name.toLowerCase().contains(value.toLowerCase())) {
+          foundRestaurant.add(item);
+          print("qo'shildi");
+        }
+      }
+    }
+    notifyListeners();
   }
 }

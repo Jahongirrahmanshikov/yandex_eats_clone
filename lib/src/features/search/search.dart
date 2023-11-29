@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yandex_eats/src/features/controller/main_controller.dart';
+import '../controller/main_controller.dart';
 
-import '../../common/data/database.dart';
-import '../../common/model/restaurant_model.dart';
 import '../../common/styles/app_colors.dart';
 import '../../common/utils/custom_extension.dart';
 import '../detail/restaurant_detail.dart';
@@ -17,8 +15,6 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  List<Restaurant> searchResult = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,16 +58,9 @@ class _SearchState extends State<Search> {
                         child: TextField(
                           autofocus: true,
                           onChanged: (value) {
-                            searchResult = [];
-
-                            if (value.isNotEmpty) {
-                              for (var item in Data.restaurant) {
-                                if (item.name.contains(value.toLowerCase())) {
-                                  searchResult.add(item);
-                                }
-                              }
-                              setState(() {});
-                            }
+                            context
+                                .read<MainController>()
+                                .searchRestaurant(value);
                           },
                           decoration: const InputDecoration(
                             enabledBorder: InputBorder.none,
@@ -95,7 +84,7 @@ class _SearchState extends State<Search> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: List.generate(
-                      searchResult.length,
+                      context.watch<MainController>().foundRestaurant.length,
                       (index) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: GestureDetector(
@@ -105,8 +94,8 @@ class _SearchState extends State<Search> {
                               MaterialPageRoute(
                                 builder: (context) => ProductsView(
                                   restaurant: context
-                                      .read<MainController>()
-                                      .restaurant[index],
+                                      .watch<MainController>()
+                                      .foundRestaurant[index],
                                 ),
                               ),
                             );
@@ -124,8 +113,8 @@ class _SearchState extends State<Search> {
                                           Radius.circular(15)),
                                       child: Image.asset(
                                         context
-                                            .read<MainController>()
-                                            .restaurant[index]
+                                            .watch<MainController>()
+                                            .foundRestaurant[index]
                                             .restaurantImage,
                                         fit: BoxFit.cover,
                                       ),
@@ -170,8 +159,8 @@ class _SearchState extends State<Search> {
                               ),
                               Text(
                                 context
-                                    .read<MainController>()
-                                    .restaurant[index]
+                                    .watch<MainController>()
+                                    .foundRestaurant[index]
                                     .name,
                                 style: context.textTheme.bodyLarge?.copyWith(
                                   color: AppColors.black,

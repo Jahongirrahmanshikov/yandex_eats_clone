@@ -394,7 +394,10 @@ class TextWidgets extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w700, fontSize: 20),
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 20,
+        ),
       ),
     );
   }
