@@ -86,6 +86,7 @@ class MainController extends ChangeNotifier {
   String? numberValidate;
   String? sMSValidate;
   int codeSms = 0;
+  
   int timer = 0;
 
   void onChanged(String value) => phoneNumber = value;
@@ -95,7 +96,7 @@ class MainController extends ChangeNotifier {
       codeSms = 100000 + Random().nextInt(999999 - 100000);
 
       final Uri url =
-          Uri.parse(' https://8f48-178-218-201-17.ngrok-free.app/sms/');
+          Uri.parse('https://8f48-178-218-201-17.ngrok-free.app/sms/');
       final Response response = await post(
         url,
         headers: <String, String>{'Content-Type': 'application/json'},
